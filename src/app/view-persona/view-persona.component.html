@@ -1,0 +1,39 @@
+
+<h2>Lista de personas</h2>
+
+<div>
+  <label for="cedula">Cedula:  </label>
+<input id="cedula" type="text" [formControl]="cedula" [attr.disabled] = "onEdit === 1 ? 'disabled' : null">
+<label for="nombre">Nombre:  </label>
+<input id="nombre" type="text" [formControl]="nombre">
+<label for="apellido">Apellido:  </label>
+<input id="apellido" type="text" [formControl]="apellido">
+<button mat-button color="accent" (click)="guardarCambios()">Guardar<mat-icon>save</mat-icon></button>
+
+</div>
+<mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container matColumnDef="Cedula">
+    <mat-header-cell *matHeaderCellDef> Cedula</mat-header-cell>
+    <mat-cell *matCellDef="let persona"> {{persona.cedula}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="Nombre">
+    <mat-header-cell *matHeaderCellDef> Nombre</mat-header-cell>
+    <mat-cell *matCellDef="let persona"> {{persona.nombre}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="Apellido">
+    <mat-header-cell *matHeaderCellDef> Apellido </mat-header-cell>
+    <mat-cell *matCellDef="let persona"> {{persona.apellido}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="Acciones">
+    <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+    <mat-cell *matCellDef="let persona">
+      <button mat-button (click)="editPersona(persona)"><mat-icon color="primary">edit</mat-icon></button>
+      <button mat-button (click)="deletePersona(persona.cedula)"><mat-icon color="primary">delete</mat-icon></button>
+    </mat-cell>
+
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let persona; columns: displayedColumns;"matRipple></mat-row>
+</mat-table>
+
+
